@@ -49,7 +49,8 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Functions available for DataFrame operations.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -60,7 +61,7 @@
         <div id="order">
               <span class="filtertype">Ordering</span>
               <ol>
-                
+                <li class="group out"><span>Grouped</span></li>
                 <li class="alpha in"><span>Alphabetic</span></li>
                 <li class="inherit out"><span>By Inheritance</span></li>
               </ol>
@@ -145,7 +146,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#antiTrim" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#antiTrim" visbl="pub" data-isabs="false" fullComment="no" group="string_funcs">
       <a id="antiTrim(col:org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="antiTrim(Column):Column"></a>
       <h4 class="signature">
@@ -161,7 +162,26 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Deletes inner whitespace and leaves leading and trailing whitespace</p>
+      <p class="shortcomment cmt">Deletes inner whitespace and leaves leading and trailing whitespace
+</p>
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#arrayExNull" visbl="pub" data-isabs="false" fullComment="no" group="collection_funcs">
+      <a id="arrayExNull(cols:org.apache.spark.sql.Column*):org.apache.spark.sql.Column"></a>
+      <a id="arrayExNull(Column*):Column"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arrayExNull</span><span class="params">(<span name="cols">cols: <span class="extype" name="org.apache.spark.sql.Column">Column</span>*</span>)</span><span class="result">: <span class="extype" name="org.apache.spark.sql.Column">Column</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.github.mrpowers.spark.daria.sql.functions$@arrayExNull(cols:org.apache.spark.sql.Column*):org.apache.spark.sql.Column" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Like array but doesn't include null elements
+</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -179,24 +199,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#between" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="between(col:org.apache.spark.sql.Column,min:Any,max:Any):org.apache.spark.sql.Column"></a>
-      <a id="between(Column,Any,Any):Column"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">between</span><span class="params">(<span name="col">col: <span class="extype" name="org.apache.spark.sql.Column">Column</span></span>, <span name="min">min: <span class="extype" name="scala.Any">Any</span></span>, <span name="max">max: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="org.apache.spark.sql.Column">Column</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.github.mrpowers.spark.daria.sql.functions$@between(col:org.apache.spark.sql.Column,min:Any,max:Any):org.apache.spark.sql.Column" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#capitalizeFully" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#capitalizeFully" visbl="pub" data-isabs="false" fullComment="no" group="string_funcs">
       <a id="capitalizeFully(delimiters:List[Char]):org.apache.spark.sql.expressions.UserDefinedFunction"></a>
       <a id="capitalizeFully(List[Char]):UserDefinedFunction"></a>
       <h4 class="signature">
@@ -212,7 +215,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Like initcap, but factors in additional delimiters</p>
+      <p class="shortcomment cmt">Like initcap, but factors in additional delimiters
+</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -270,7 +274,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#exists" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#exists" visbl="pub" data-isabs="false" fullComment="no" group="collection_funcs">
       <a id="exists[T](f:T=&gt;Boolean)(implicitevidence$1:reflect.runtime.universe.TypeTag[T]):org.apache.spark.sql.expressions.UserDefinedFunction"></a>
       <a id="exists[T]((T)⇒Boolean)(scala.reflect.api.JavaUniverse.TypeTag[T]):UserDefinedFunction"></a>
       <h4 class="signature">
@@ -286,7 +290,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Like Scala Array exists method, but for ArrayType columns</p>
+      <p class="shortcomment cmt">Like Scala Array exists method, but for ArrayType columns
+</p>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -310,7 +315,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#forall" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#forall" visbl="pub" data-isabs="false" fullComment="no" group="collection_funcs">
       <a id="forall[T](f:T=&gt;Boolean)(implicitevidence$2:reflect.runtime.universe.TypeTag[T]):org.apache.spark.sql.expressions.UserDefinedFunction"></a>
       <a id="forall[T]((T)⇒Boolean)(scala.reflect.api.JavaUniverse.TypeTag[T]):UserDefinedFunction"></a>
       <h4 class="signature">
@@ -326,7 +331,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Like Scala Array forall method, but for ArrayType columns</p>
+      <p class="shortcomment cmt">Like Scala Array forall method, but for ArrayType columns
+</p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -378,7 +384,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#multiEquals" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#multiEquals" visbl="pub" data-isabs="false" fullComment="no" group="misc_funcs">
       <a id="multiEquals[T](value:T,cols:org.apache.spark.sql.Column*)(implicitevidence$3:reflect.runtime.universe.TypeTag[T]):org.apache.spark.sql.Column"></a>
       <a id="multiEquals[T](T,Column*)(scala.reflect.api.JavaUniverse.TypeTag[T]):Column"></a>
       <h4 class="signature">
@@ -394,7 +400,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if multiple columns are equal to a given value</p>
+      <p class="shortcomment cmt">Returns true if multiple columns are equal to a given value
+</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -446,7 +453,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#removeAllWhitespace" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#removeAllWhitespace" visbl="pub" data-isabs="false" fullComment="yes" group="string_funcs">
       <a id="removeAllWhitespace(colName:String):org.apache.spark.sql.Column"></a>
       <a id="removeAllWhitespace(String):Column"></a>
       <h4 class="signature">
@@ -462,8 +469,10 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Removes all whitespace in a string</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#removeAllWhitespace" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Removes all whitespace in a string
+</p><div class="fullcomment"><div class="comment cmt"><p>Removes all whitespace in a string
+</p></div><dl class="attributes block"> <dt>Since</dt><dd><p>0.16.0</p></dd></dl></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#removeAllWhitespace" visbl="pub" data-isabs="false" fullComment="yes" group="string_funcs">
       <a id="removeAllWhitespace(col:org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="removeAllWhitespace(Column):Column"></a>
       <h4 class="signature">
@@ -479,8 +488,10 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Removes all whitespace in a string</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#removeNonWordCharacters" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Removes all whitespace in a string
+</p><div class="fullcomment"><div class="comment cmt"><p>Removes all whitespace in a string
+</p></div><dl class="attributes block"> <dt>Since</dt><dd><p>0.16.0</p></dd></dl></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#removeNonWordCharacters" visbl="pub" data-isabs="false" fullComment="no" group="string_funcs">
       <a id="removeNonWordCharacters(col:org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="removeNonWordCharacters(Column):Column"></a>
       <h4 class="signature">
@@ -496,8 +507,9 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Removes all non-word characters from a string</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#singleSpace" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Removes all non-word characters from a string
+</p>
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#singleSpace" visbl="pub" data-isabs="false" fullComment="no" group="string_funcs">
       <a id="singleSpace(col:org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="singleSpace(Column):Column"></a>
       <h4 class="signature">
@@ -513,7 +525,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Replaces all whitespace in a string with single spaces</p>
+      <p class="shortcomment cmt">Replaces all whitespace in a string with single spaces
+</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -548,7 +561,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#truncate" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#truncate" visbl="pub" data-isabs="false" fullComment="no" group="string_funcs">
       <a id="truncate(col:org.apache.spark.sql.Column,len:Int):org.apache.spark.sql.Column"></a>
       <a id="truncate(Column,Int):Column"></a>
       <h4 class="signature">
@@ -564,7 +577,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Truncates the length of StringType columns</p>
+      <p class="shortcomment cmt">Truncates the length of StringType columns
+</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -634,7 +648,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.functions#yeardiff" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.functions#yeardiff" visbl="pub" data-isabs="false" fullComment="no" group="datetime_funcs">
       <a id="yeardiff(end:org.apache.spark.sql.Column,start:org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="yeardiff(Column,Column):Column"></a>
       <h4 class="signature">
@@ -650,7 +664,7 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns the years between two dates</p>
+      <p class="shortcomment cmt">Returns the number of years from <code>start</code> to <code>end</code>.</p>
     </li></ol>
             </div>
 
@@ -669,8 +683,20 @@
         </div>
 
         <div id="groupedMembers">
-        <div class="group" name="Ungrouped">
-              <h3>Ungrouped</h3>
+        <div class="group" name="collection_funcs">
+              <h3>Collection functions</h3>
+              
+            </div><div class="group" name="datetime_funcs">
+              <h3>Date time functions</h3>
+              
+            </div><div class="group" name="misc_funcs">
+              <h3>Misc functions</h3>
+              
+            </div><div class="group" name="string_funcs">
+              <h3>String functions</h3>
+              
+            </div><div class="group" name="Ungrouped">
+              <h3>Support functions for DataFrames</h3>
               
             </div>
         </div>

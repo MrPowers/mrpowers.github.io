@@ -60,7 +60,7 @@
         <div id="order">
               <span class="filtertype">Ordering</span>
               <ol>
-                
+                <li class="group out"><span>Grouped</span></li>
                 <li class="alpha in"><span>Alphabetic</span></li>
                 <li class="inherit out"><span>By Inheritance</span></li>
               </ol>
@@ -182,7 +182,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#chain" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#chain" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="chain(colMethod:org.apache.spark.sql.Column=&gt;org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="chain((Column)⇒Column):Column"></a>
       <h4 class="signature">
@@ -198,8 +198,28 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Chains column functions</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#chainUDF" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Chains column functions
+//The chain method takes a org.apache.spark.sql.functions function as an argument and can be used as follows:</p><div class="fullcomment"><div class="comment cmt"><p>Chains column functions
+//The chain method takes a org.apache.spark.sql.functions function as an argument and can be used as follows:</p><pre><span class="kw">val</span> wordsDf = <span class="std">Seq</span>(
+  (<span class="lit">"Batman  "</span>),
+  (<span class="lit">"  CATWOMAN"</span>),
+  (<span class="lit">" pikachu "</span>)
+).toDF(<span class="lit">"word"</span>)
+
+<span class="kw">val</span> actualDf = wordsDf.withColumn(
+   <span class="lit">"cleaned_word"</span>,
+   col(<span class="lit">"word"</span>).chain(lower).chain(trim)
+)
+
+actualDf.show()
++----------+------------+
+|      word|cleaned_word|
++----------+------------+
+|  Batman  |      batman|
+|  CATWOMAN|    catwoman|
+|  pikachu |     pikachu|
++----------+------------+</pre></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#chainUDF" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="chainUDF(udfName:String,cols:org.apache.spark.sql.Column*):org.apache.spark.sql.Column"></a>
       <a id="chainUDF(String,Column*):Column"></a>
       <h4 class="signature">
@@ -215,7 +235,35 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Chains UDFs</p>
+      <p class="shortcomment cmt">Chains UDFs</p><div class="fullcomment"><div class="comment cmt"><p>Chains UDFs</p><pre><span class="kw">def</span> appendZ(s: <span class="std">String</span>): <span class="std">String</span> = {
+  s + <span class="lit">"Z"</span>
+}
+
+spark.udf.register(<span class="lit">"appendZUdf"</span>, appendZ _)
+
+<span class="kw">def</span> prependA(s: <span class="std">String</span>): <span class="std">String</span> = {
+  <span class="lit">"A"</span> + s
+}
+
+spark.udf.register(<span class="lit">"prependAUdf"</span>, prependA _)
+
+<span class="kw">val</span> hobbiesDf = <span class="std">Seq</span>(
+  (<span class="lit">"dance"</span>),
+  (<span class="lit">"sing"</span>)
+).toDF(<span class="lit">"word"</span>)
+
+<span class="kw">val</span> actualDf = hobbiesDf.withColumn(
+  <span class="lit">"fun"</span>,
+  col(<span class="lit">"word"</span>).chainUDF(<span class="lit">"appendZUdf"</span>).chainUDF(<span class="lit">"prependAUdf"</span>)
+)
+
+actualDf.show()
++-----+-------+
+| word|    fun|
++-----+-------+
+|dance|AdanceZ|
+| sing| AsingZ|
++-----+-------+</pre></div></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -330,7 +378,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isFalse" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isFalse" visbl="pub" data-isabs="false" fullComment="no" group="expr_ops">
       <a id="isFalse:org.apache.spark.sql.Column"></a>
       <a id="isFalse:Column"></a>
       <h4 class="signature">
@@ -346,8 +394,9 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the col is false</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isFalsy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Returns true if the col is false
+</p>
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isFalsy" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="isFalsy:org.apache.spark.sql.Column"></a>
       <a id="isFalsy:Column"></a>
       <h4 class="signature">
@@ -363,7 +412,21 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the col is false or null</p>
+      <p class="shortcomment cmt">Returns true if the col is false or null
+<code>isFalsy</code> returns <code>true</code> if a column is <code>null</code> or <code>false</code> and <code>false</code> otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Returns true if the col is false or null
+<code>isFalsy</code> returns <code>true</code> if a column is <code>null</code> or <code>false</code> and <code>false</code> otherwise.</p><p>Suppose you start with the following <code>sourceDF</code>:</p><pre>+------+
+|is_fun|
++------+
+|  <span class="kw">true</span>|
+| <span class="kw">false</span>|
+|  <span class="kw">null</span>|
++------+</pre><p>Run the <code>isFalsy</code> method:</p><pre><span class="kw">val</span> actualDF = sourceDF.withColumn(<span class="lit">"is_fun_falsy"</span>, col(<span class="lit">"is_fun"</span>).isFalsy)</pre><p>Here are the contents of <code>actualDF</code>:</p><pre>+------+------------+
+|is_fun|is_fun_falsy|
++------+------------+
+|  <span class="kw">true</span>|       <span class="kw">false</span>|
+| <span class="kw">false</span>|        <span class="kw">true</span>|
+|  <span class="kw">null</span>|        <span class="kw">true</span>|
++------+------------+</pre></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -381,7 +444,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isNotIn" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isNotIn" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="isNotIn(list:Any*):org.apache.spark.sql.Column"></a>
       <a id="isNotIn(Any*):Column"></a>
       <h4 class="signature">
@@ -397,8 +460,29 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the col is not in a list of elements</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isNotNullOrBlank" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Returns true if the col is not in a list of elements
+The <code>isNotIn</code> method returns <code>true</code> if a column element is not in a list and <code>false</code> otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Returns true if the col is not in a list of elements
+The <code>isNotIn</code> method returns <code>true</code> if a column element is not in a list and <code>false</code> otherwise.  It's the opposite of the <code>isin</code> method.</p><p>Suppose you start with the following <code>sourceDF</code>:</p><pre>+-----+
+|stuff|
++-----+
+|  dog|
+|shoes|
+|laces|
+| <span class="kw">null</span>|
++-----+</pre><p>Run the <code>isNotIn</code> method:</p><pre><span class="kw">val</span> footwearRelated = <span class="std">Seq</span>(<span class="lit">"laces"</span>, <span class="lit">"shoes"</span>)
+
+<span class="kw">val</span> actualDF = sourceDF.withColumn(
+  <span class="lit">"is_not_footwear_related"</span>,
+  col(<span class="lit">"stuff"</span>).isNotIn(footwearRelated: _*)
+)</pre><p>Here are the contents of <code>actualDF</code>:</p><pre>+-----+-----------------------+
+|stuff|is_not_footwear_related|
++-----+-----------------------+
+|  dog|                   <span class="kw">true</span>|
+|shoes|                  <span class="kw">false</span>|
+|laces|                  <span class="kw">false</span>|
+| <span class="kw">null</span>|                   <span class="kw">null</span>|
++-----+-----------------------+</pre></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isNotNullOrBlank" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="isNotNullOrBlank:org.apache.spark.sql.Column"></a>
       <a id="isNotNullOrBlank:Column"></a>
       <h4 class="signature">
@@ -414,8 +498,27 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the col is not null or a blank string</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isNullOrBlank" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Returns true if the col is not null or a blank string</p><div class="fullcomment"><div class="comment cmt"><p>Returns true if the col is not null or a blank string</p><p>The <code>isNotNullOrBlank</code> method returns <code>true</code> if a column is not <code>null</code> or <code>blank</code> and <code>false</code> otherwise.
+Suppose you start with the following <code>sourceDF</code>:</p><p>+-------------+
+|employee_name|
++-------------+
+|         John|
+|         null|
+|           &quot;&quot;|
+|       &quot;    &quot;|
++-------------+</p><p>Run the <code>isNotNullOrBlank</code> method:</p><pre><span class="kw">val</span> actualDF = sourceDF.withColumn(
+  <span class="lit">"employee_name_is_not_null_or_blank"</span>,
+  col(<span class="lit">"employee_name"</span>).isNotNullOrBlank
+)</pre><p>Here are the contents of <code>actualDF</code>:</p><p>+-------------+----------------------------------+
+|employee_name|employee_name_is_not_null_or_blank|
++-------------+----------------------------------+
+|         John|                              true|
+|         null|                             false|
+|           &quot;&quot;|                             false|
+|       &quot;    &quot;|                             false|
++-------------+----------------------------------+
+</p></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isNullOrBlank" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="isNullOrBlank:org.apache.spark.sql.Column"></a>
       <a id="isNullOrBlank:Column"></a>
       <h4 class="signature">
@@ -431,8 +534,27 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the col is null or a blank string</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isTrue" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Returns true if the col is null or a blank string
+The <code>isNullOrBlank</code> method returns <code>true</code> if a column is <code>null</code> or <code>blank</code> and <code>false</code> otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Returns true if the col is null or a blank string
+The <code>isNullOrBlank</code> method returns <code>true</code> if a column is <code>null</code> or <code>blank</code> and <code>false</code> otherwise.</p><p>Suppose you start with the following <code>sourceDF</code>:</p><pre>+-----------+
+|animal_type|
++-----------+
+|        dog|
+|       <span class="kw">null</span>|
+|         <span class="lit">""</span>|
+|     <span class="lit">"    "</span>|
++-----------+</pre><p>Run the <code>isNullOrBlank</code> method:</p><pre><span class="kw">val</span> actualDF = sourceDF.withColumn(
+<span class="lit">"animal_type_is_null_or_blank"</span>,
+col(<span class="lit">"animal_type"</span>).isNullOrBlank
+)</pre><p>Here are the contents of <code>actualDF</code>:</p><pre>+-----------+----------------------------+
+|animal_type|animal_type_is_null_or_blank|
++-----------+----------------------------+
+|        dog|                       <span class="kw">false</span>|
+|       <span class="kw">null</span>|                        <span class="kw">true</span>|
+|         <span class="lit">""</span>|                        <span class="kw">true</span>|
+|     <span class="lit">"    "</span>|                        <span class="kw">true</span>|
++-----------+----------------------------+</pre></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isTrue" visbl="pub" data-isabs="false" fullComment="no" group="expr_ops">
       <a id="isTrue:org.apache.spark.sql.Column"></a>
       <a id="isTrue:Column"></a>
       <h4 class="signature">
@@ -448,8 +570,9 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the current expression is true</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isTruthy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Returns true if the current expression is true
+</p>
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#isTruthy" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="isTruthy:org.apache.spark.sql.Column"></a>
       <a id="isTruthy:Column"></a>
       <h4 class="signature">
@@ -465,7 +588,21 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the col is not false or null</p>
+      <p class="shortcomment cmt">Returns true if the col is not false or null
+<code>isTruthy</code> returns <code>false</code> if a column is <code>null</code> or <code>false</code> and <code>true</code> otherwise.</p><div class="fullcomment"><div class="comment cmt"><p>Returns true if the col is not false or null
+<code>isTruthy</code> returns <code>false</code> if a column is <code>null</code> or <code>false</code> and <code>true</code> otherwise.</p><p>Suppose you start with the following <code>sourceDF</code>:</p><pre>+------+
+|is_fun|
++------+
+|  <span class="kw">true</span>|
+| <span class="kw">false</span>|
+|  <span class="kw">null</span>|
++------+</pre><p>Run the <code>isTruthy</code> method:</p><pre><span class="kw">val</span> actualDF = sourceDF.withColumn(<span class="lit">"is_fun_truthy"</span>, col(<span class="lit">"is_fun"</span>).isTruthy)</pre><p>Here are the contents of <code>actualDF</code>:</p><pre>+------+-------------+
+|is_fun|is_fun_truthy|
++------+-------------+
+|  <span class="kw">true</span>|         <span class="kw">true</span>|
+| <span class="kw">false</span>|        <span class="kw">false</span>|
+|  <span class="kw">null</span>|        <span class="kw">false</span>|
++------+-------------+</pre></div></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -517,7 +654,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#nullBetween" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.ColumnExt.ColumnMethods#nullBetween" visbl="pub" data-isabs="false" fullComment="yes" group="expr_ops">
       <a id="nullBetween(lowerCol:org.apache.spark.sql.Column,upperCol:org.apache.spark.sql.Column):org.apache.spark.sql.Column"></a>
       <a id="nullBetween(Column,Column):Column"></a>
       <h4 class="signature">
@@ -533,7 +670,22 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Like between, but geq when upper bound is null and leq when lower bound is null</p>
+      <p class="shortcomment cmt">Like between, but geq when upper bound is null and leq when lower bound is null
+The built in <code>between</code> doesn't work well when one of the bounds is undefined.</p><div class="fullcomment"><div class="comment cmt"><p>Like between, but geq when upper bound is null and leq when lower bound is null
+The built in <code>between</code> doesn't work well when one of the bounds is undefined.  <code>nullBetween</code> is more useful when you have &quot;less than or equal to&quot; or &quot;greater than or equal to&quot; logic embedded in your upper and lower bounds.  For example, if the lower bound is <code>null</code> and the upper bound is <code>15</code>, <code>nullBetween</code> will interpret that as &quot;all values below 15&quot;.</p><p>Let's compare the <code>between</code> and <code>nullBetween</code> methods with a code snipped and the outputted DataFrame.</p><pre><span class="kw">val</span> actualDF = sourceDF.withColumn(
+  <span class="lit">"between"</span>,
+  col(<span class="lit">"age"</span>).between(col(<span class="lit">"lower_bound"</span>), col(<span class="lit">"upper_bound"</span>))
+).withColumn(
+  <span class="lit">"nullBetween"</span>,
+  col(<span class="lit">"age"</span>).nullBetween(col(<span class="lit">"lower_bound"</span>), col(<span class="lit">"upper_bound"</span>))
+)
++-----------+-----------+---+-------+-----------+
+|lower_bound|upper_bound|age|between|nullBetween|
++-----------+-----------+---+-------+-----------+
+|         <span class="num">10</span>|         <span class="num">15</span>| <span class="num">11</span>|   <span class="kw">true</span>|       <span class="kw">true</span>|
+|         <span class="num">17</span>|       <span class="kw">null</span>| <span class="num">94</span>|   <span class="kw">null</span>|       <span class="kw">true</span>|
+|       <span class="kw">null</span>|         <span class="num">10</span>|  <span class="num">5</span>|   <span class="kw">null</span>|       <span class="kw">true</span>|
++-----------+-----------+---+-------+-----------+</pre></div></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -655,8 +807,11 @@
         </div>
 
         <div id="groupedMembers">
-        <div class="group" name="Ungrouped">
-              <h3>Ungrouped</h3>
+        <div class="group" name="expr_ops">
+              <h3>Expression operators</h3>
+              
+            </div><div class="group" name="Ungrouped">
+              <h3>Support functions for DataFrames</h3>
               
             </div>
         </div>
