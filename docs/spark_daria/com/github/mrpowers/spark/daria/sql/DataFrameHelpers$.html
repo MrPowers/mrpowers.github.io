@@ -185,7 +185,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameHelpers#columnToArray" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameHelpers#columnToArray" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="columnToArray[T](df:org.apache.spark.sql.DataFrame,colName:String)(implicitevidence$3:scala.reflect.ClassTag[T]):Array[T]"></a>
       <a id="columnToArray[T](DataFrame,String)(ClassTag[T]):Array[T]"></a>
       <h4 class="signature">
@@ -201,7 +201,19 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Converts a DataFrame column to an Array of values</p>
+      <p class="shortcomment cmt">Converts a DataFrame column to an Array of values
+<b>N.B. This method uses <code>collect</code> and should only be called on small DataFrames.</b></p><div class="fullcomment"><div class="comment cmt"><p>Converts a DataFrame column to an Array of values
+<b>N.B. This method uses <code>collect</code> and should only be called on small DataFrames.</b></p><p>This function converts a column to an array of items.</p><p>Suppose we have the following <code>sourceDF</code>:</p><pre>+---+
+|num|
++---+
+|  <span class="num">1</span>|
+|  <span class="num">2</span>|
+|  <span class="num">3</span>|
++---+</pre><p>Let's convert the <code>num</code> column to an Array of values.  Let's run the code and view the results.</p><pre><span class="kw">val</span> actual = DataFrameHelpers.columnToArray[<span class="std">Int</span>](sourceDF, <span class="lit">"num"</span>)
+
+println(actual)
+
+<span class="cmt">// Array(1, 2, 3)</span></pre></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -378,7 +390,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameHelpers#toArrayOfMaps" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameHelpers#toArrayOfMaps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toArrayOfMaps(df:org.apache.spark.sql.DataFrame):Array[scala.collection.immutable.Map[String,Any]]"></a>
       <a id="toArrayOfMaps(DataFrame):Array[Map[String,Any]]"></a>
       <h4 class="signature">
@@ -394,7 +406,21 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Converts a DataFrame to an Array of Maps</p>
+      <p class="shortcomment cmt">Converts a DataFrame to an Array of Maps
+<b>N.B. This method uses <code>collect</code> and should only be called on small DataFrames.</b></p><div class="fullcomment"><div class="comment cmt"><p>Converts a DataFrame to an Array of Maps
+<b>N.B. This method uses <code>collect</code> and should only be called on small DataFrames.</b></p><p>Converts a DataFrame to an array of Maps.</p><p>Suppose we have the following <code>sourceDF</code>:</p><pre>+----------+-----------+---------+
+|profession|some_number|pay_grade|
++----------+-----------+---------+
+|    doctor|          <span class="num">4</span>|     high|
+|   dentist|         <span class="num">10</span>|     high|
++----------+-----------+---------+</pre><p>Run the code to convert this DataFrame into an array of Maps.</p><pre><span class="kw">val</span> actual = DataFrameHelpers.toArrayOfMaps(sourceDF)
+
+println(actual)
+
+<span class="std">Array</span>(
+  <span class="std">Map</span>(<span class="lit">"profession"</span> -&gt; <span class="lit">"doctor"</span>, <span class="lit">"some_number"</span> -&gt; <span class="num">4</span>, <span class="lit">"pay_grade"</span> -&gt; <span class="lit">"high"</span>),
+  <span class="std">Map</span>(<span class="lit">"profession"</span> -&gt; <span class="lit">"dentist"</span>, <span class="lit">"some_number"</span> -&gt; <span class="num">10</span>, <span class="lit">"pay_grade"</span> -&gt; <span class="lit">"high"</span>)
+)</pre></div></div>
     </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
@@ -412,7 +438,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameHelpers#twoColumnsToMap" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameHelpers#twoColumnsToMap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="twoColumnsToMap[keyType,valueType](df:org.apache.spark.sql.DataFrame,keyColName:String,valueColName:String)(implicitevidence$1:reflect.runtime.universe.TypeTag[keyType],implicitevidence$2:reflect.runtime.universe.TypeTag[valueType]):Map[keyType,valueType]"></a>
       <a id="twoColumnsToMap[keyType,valueType](DataFrame,String,String)(scala.reflect.api.JavaUniverse.TypeTag[keyType],scala.reflect.api.JavaUniverse.TypeTag[valueType]):Map[keyType,valueType]"></a>
       <h4 class="signature">
@@ -428,7 +454,23 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Converts two column to a map of key value pairs</p>
+      <p class="shortcomment cmt">Converts two column to a map of key value pairs</p><div class="fullcomment"><div class="comment cmt"><p>Converts two column to a map of key value pairs</p><p><b>N.B. This method uses <code>collect</code> and should only be called on small DataFrames.</b></p><p>Converts two columns in a DataFrame to a Map.</p><p>Suppose we have the following <code>sourceDF</code>:</p><pre>+-----------+---------+
+|     island|fun_level|
++-----------+---------+
+|    boracay|        <span class="num">7</span>|
+|long island|        <span class="num">9</span>|
++-----------+---------+</pre><p>Let's convert this DataFrame to a Map with <code>island</code> as the key and <code>fun_level</code> as the value.</p><pre><span class="kw">val</span> actual = DataFrameHelpers.twoColumnsToMap[<span class="std">String</span>, Integer](
+  sourceDF,
+  <span class="lit">"island"</span>,
+  <span class="lit">"fun_level"</span>
+)
+
+println(actual)
+
+<span class="cmt">// Map(</span>
+<span class="cmt">//   "boracay" -> 7,</span>
+<span class="cmt">//   "long island" -> 9</span>
+<span class="cmt">// )</span></pre></div></div>
     </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameValidator#validateAbsenceOfColumns" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="validateAbsenceOfColumns(df:org.apache.spark.sql.DataFrame,prohibitedColNames:Seq[String]):Unit"></a>
       <a id="validateAbsenceOfColumns(DataFrame,Seq[String]):Unit"></a>

@@ -222,7 +222,7 @@
       </a>
     </span>
       <p class="shortcomment cmt">Returns the columns in otherDF that aren't in self</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#composeTransforms" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#composeTransforms" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="composeTransforms(transforms:List[org.apache.spark.sql.DataFrame=&gt;org.apache.spark.sql.DataFrame]):org.apache.spark.sql.DataFrame"></a>
       <a id="composeTransforms(List[(DataFrame)⇒DataFrame]):DataFrame"></a>
       <h4 class="signature">
@@ -238,8 +238,18 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Executes a list of custom DataFrame transformations</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#containsColumn" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Executes a list of custom DataFrame transformations
+Uses function composition to run a list of DataFrame transformations.</p><div class="fullcomment"><div class="comment cmt"><p>Executes a list of custom DataFrame transformations
+Uses function composition to run a list of DataFrame transformations.</p><p>def withGreeting()(df: DataFrame): DataFrame = {
+  df.withColumn(&quot;greeting&quot;, lit(&quot;hello world&quot;))
+}</p><p>def withCat(name: String)(df: DataFrame): DataFrame = {
+  df.withColumn(&quot;cats&quot;, lit(name + &quot; meow&quot;))
+}</p><p>val transforms = List(
+  withGreeting()(_),
+  withCat(&quot;sandy&quot;)(_)
+)</p><p>sourceDF.composeTransforms(transforms)
+</p></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#containsColumn" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="containsColumn(colName:String):Boolean"></a>
       <a id="containsColumn(String):Boolean"></a>
       <h4 class="signature">
@@ -255,7 +265,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns true if the DataFrame contains the column</p>
+      <p class="shortcomment cmt">Returns true if the DataFrame contains the column</p><div class="fullcomment"><div class="comment cmt"><p>Returns true if the DataFrame contains the column</p><pre>sourceDF.containsColumn(<span class="lit">"team"</span>)</pre><p>Returns <code>true</code> if <code>sourceDF</code> contains a column named <code>&quot;team&quot;</code> and false otherwise.
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -415,7 +426,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#printSchemaInCodeFormat" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#printSchemaInCodeFormat" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="printSchemaInCodeFormat():Unit"></a>
       <a id="printSchemaInCodeFormat():Unit"></a>
       <h4 class="signature">
@@ -431,8 +442,25 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Prints the schema with StructType and StructFields so it's easy to copy into code</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#reorderColumns" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Prints the schema with StructType and StructFields so it's easy to copy into code
+Spark has a <code>printSchema</code> method to print the schema of a DataFrame and a <code>schema</code> method that returns a <code>StructType</code> object.</p><div class="fullcomment"><div class="comment cmt"><p>Prints the schema with StructType and StructFields so it's easy to copy into code
+Spark has a <code>printSchema</code> method to print the schema of a DataFrame and a <code>schema</code> method that returns a <code>StructType</code> object.</p><p>The <code>Dataset#schema</code> method can be easily converted into working code for small DataFrames, but it can be a lot of manual work for DataFrames with a lot of columns.</p><p>The <code>printSchemaInCodeFormat</code> DataFrame extension prints the DataFrame schema as a valid <code>StructType</code> object.</p><p>Suppose you have the following <code>sourceDF</code>:</p><pre>+--------+--------+---------+
+|    team|   sport|goals_for|
++--------+--------+---------+
+|    jets|football|       <span class="num">45</span>|
+|nacional|  soccer|       <span class="num">10</span>|
++--------+--------+---------+
+
+`sourceDF.printSchemaInCodeFormat()` will output the following rows in the console:
+
+StructType(
+  <span class="std">List</span>(
+    StructField(<span class="lit">"team"</span>, StringType, <span class="kw">true</span>),
+    StructField(<span class="lit">"sport"</span>, StringType, <span class="kw">true</span>),
+    StructField(<span class="lit">"goals_for"</span>, IntegerType, <span class="kw">true</span>)
+  )
+)</pre></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#reorderColumns" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="reorderColumns(colNames:Seq[String]):org.apache.spark.sql.DataFrame"></a>
       <a id="reorderColumns(Seq[String]):DataFrame"></a>
       <h4 class="signature">
@@ -448,7 +476,12 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Reorders columns as specified</p>
+      <p class="shortcomment cmt">Reorders columns as specified
+Reorders the columns in a DataFrame.</p><div class="fullcomment"><div class="comment cmt"><p>Reorders columns as specified
+Reorders the columns in a DataFrame.</p><pre><span class="kw">val</span> actualDF = sourceDF.reorderColumns(
+  <span class="std">Seq</span>(<span class="lit">"greeting"</span>, <span class="lit">"team"</span>, <span class="lit">"cats"</span>)
+)</pre><p>The <code>actualDF</code> will have the <code>greeting</code> column first, then the <code>team</code> column then the <code>cats</code> column.
+</p></div></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -483,7 +516,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#trans" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.DataFrameExt.DataFrameMethods#trans" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="trans(customTransform:com.github.mrpowers.spark.daria.sql.CustomTransform):org.apache.spark.sql.DataFrame"></a>
       <a id="trans(CustomTransform):DataFrame"></a>
       <h4 class="signature">
@@ -499,7 +532,29 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Like transform(), but for CustomTransform objects</p>
+      <p class="shortcomment cmt">Like transform(), but for CustomTransform objects
+Enables you to specify the columns that should be added / removed by a custom transformations and errors out if the columns the columns that are actually added / removed are different.</p><div class="fullcomment"><div class="comment cmt"><p>Like transform(), but for CustomTransform objects
+Enables you to specify the columns that should be added / removed by a custom transformations and errors out if the columns the columns that are actually added / removed are different.</p><p>val actualDF = sourceDF
+  .trans(
+    CustomTransform(
+      transform = ExampleTransforms.withGreeting(),
+      addedColumns = Seq(&quot;greeting&quot;),
+      requiredColumns = Seq(&quot;something&quot;)
+    )
+  )
+  .trans(
+    CustomTransform(
+      transform = ExampleTransforms.withCat(&quot;spanky&quot;),
+      addedColumns = Seq(&quot;cats&quot;)
+    )
+  )
+  .trans(
+    CustomTransform(
+      transform = ExampleTransforms.dropWordCol(),
+      removedColumns = Seq(&quot;word&quot;)
+    )
+  )
+</p></div></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>

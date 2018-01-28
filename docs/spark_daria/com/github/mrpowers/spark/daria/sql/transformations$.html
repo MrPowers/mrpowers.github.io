@@ -49,7 +49,8 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Functions available for DataFrame operations.</p><p>SQL transformations take a DataFrame as an argument and return a DataFrame.  They are suitable arguments for the <code>Dataset#transform</code> method.</p><p>It's convenient to work with DataFrames that have snake_case column names.  Column names with spaces make it harder to write SQL queries.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -162,7 +163,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#bulkRegexpReplace" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#bulkRegexpReplace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="bulkRegexpReplace(pattern:String,replacement:String)(df:org.apache.spark.sql.DataFrame):org.apache.spark.sql.DataFrame"></a>
       <a id="bulkRegexpReplace(String,String)(DataFrame):DataFrame"></a>
       <h4 class="signature">
@@ -178,7 +179,13 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Runs regexp_replace on all StringType columns in a DataFrame</p>
+      <p class="shortcomment cmt">Runs regexp_replace on all StringType columns in a DataFrame</p><div class="fullcomment"><div class="comment cmt"><p>Runs regexp_replace on all StringType columns in a DataFrame</p><pre><span class="kw">val</span> actualDF = sourceDF.transform(
+  transformations.bulkRegexpReplace(
+    <span class="lit">"cool"</span>,
+    <span class="lit">"dude"</span>
+  )
+)</pre><p>Replaces all <code>&quot;cool&quot;</code> strings in all the <code>sourceDF</code> columns of <code>StringType</code> with the string <code>&quot;dude&quot;</code>.
+</p></div></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -310,7 +317,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#multiRegexpReplace" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#multiRegexpReplace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="multiRegexpReplace(cols:List[org.apache.spark.sql.Column],pattern:String,replacement:String)(df:org.apache.spark.sql.DataFrame):org.apache.spark.sql.DataFrame"></a>
       <a id="multiRegexpReplace(List[Column],String,String)(DataFrame):DataFrame"></a>
       <h4 class="signature">
@@ -326,7 +333,14 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Runs regexp_replace on multiple columns</p>
+      <p class="shortcomment cmt">Runs regexp_replace on multiple columns</p><div class="fullcomment"><div class="comment cmt"><p>Runs regexp_replace on multiple columns</p><pre><span class="kw">val</span> actualDF = sourceDF.transform(
+  transformations.multiRegexpReplace(
+    <span class="std">List</span>(col(<span class="lit">"person"</span>), col(<span class="lit">"phone"</span>)),
+    <span class="lit">"cool"</span>,
+    <span class="lit">"dude"</span>
+  )
+)</pre><p>Replaces all <code>&quot;cool&quot;</code> strings in the <code>person</code> and <code>phone</code> columns with the string <code>&quot;dude&quot;</code>.
+</p></div></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -378,7 +392,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#snakeCaseColumns" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#snakeCaseColumns" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="snakeCaseColumns()(df:org.apache.spark.sql.DataFrame):org.apache.spark.sql.DataFrame"></a>
       <a id="snakeCaseColumns()(DataFrame):DataFrame"></a>
       <h4 class="signature">
@@ -394,8 +408,22 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">snake_cases all the columns of a DataFrame</p>
-    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#sortColumns" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">snake_cases all the columns of a DataFrame
+spark-daria defines a <code>com.github.mrpowers.spark.daria.sql.transformations.snakeCaseColumns</code> transformation to convert all the column names to snake\_case.</p><div class="fullcomment"><div class="comment cmt"><p>snake_cases all the columns of a DataFrame
+spark-daria defines a <code>com.github.mrpowers.spark.daria.sql.transformations.snakeCaseColumns</code> transformation to convert all the column names to snake\_case.</p><p>import com.github.mrpowers.spark.daria.sql.transformations._</p><pre><span class="kw">val</span> sourceDf = <span class="std">Seq</span>(
+  (<span class="lit">"funny"</span>, <span class="lit">"joke"</span>)
+).toDF(<span class="lit">"A b C"</span>, <span class="lit">"de F"</span>)
+
+<span class="kw">val</span> actualDf = sourceDf.transform(snakeCaseColumns)
+
+actualDf.show()
+
++-----+----+
+|a_b_c|de_f|
++-----+----+
+|funny|joke|
++-----+----+</pre></div></div>
+    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#sortColumns" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="sortColumns(order:String)(df:org.apache.spark.sql.DataFrame):org.apache.spark.sql.DataFrame"></a>
       <a id="sortColumns(String)(DataFrame):DataFrame"></a>
       <h4 class="signature">
@@ -411,7 +439,17 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Sorts the columns of a DataFrame alphabetically</p>
+      <p class="shortcomment cmt">Sorts the columns of a DataFrame alphabetically
+The <code>sortColumns</code> transformation sorts the columns in a DataFrame alphabetically.</p><div class="fullcomment"><div class="comment cmt"><p>Sorts the columns of a DataFrame alphabetically
+The <code>sortColumns</code> transformation sorts the columns in a DataFrame alphabetically.</p><p>Suppose you start with the following <code>sourceDF</code>:</p><pre>+-----+---+-----+
+| name|age|sport|
++-----+---+-----+
+|pablo|  <span class="num">3</span>| polo|
++-----+---+-----+</pre><p>Run the code:</p><pre><span class="kw">val</span> actualDF = sourceDF.transform(sortColumns())</pre><p>Here’s the <code>actualDF</code>:</p><pre>+---+-----+-----+
+|age| name|sport|
++---+-----+-----+
+|  <span class="num">3</span>|pablo| polo|
++---+-----+-----+</pre></div></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -445,7 +483,8 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Title Cases all the columns of a DataFrame</p>
+      <p class="shortcomment cmt">Title Cases all the columns of a DataFrame
+</p>
     </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
@@ -463,7 +502,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#truncateColumns" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.transformations#truncateColumns" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="truncateColumns(columnLengths:Map[String,Int])(df:org.apache.spark.sql.DataFrame):org.apache.spark.sql.DataFrame"></a>
       <a id="truncateColumns(Map[String,Int])(DataFrame):DataFrame"></a>
       <h4 class="signature">
@@ -479,7 +518,15 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Truncates multiple columns in a DataFrame</p>
+      <p class="shortcomment cmt">Truncates multiple columns in a DataFrame</p><div class="fullcomment"><div class="comment cmt"><p>Truncates multiple columns in a DataFrame</p><pre><span class="kw">val</span> columnLengths: <span class="std">Map</span>[<span class="std">String</span>, <span class="std">Int</span>] = <span class="std">Map</span>(
+  <span class="lit">"person"</span> -&gt; <span class="num">2</span>,
+  <span class="lit">"phone"</span> -&gt; <span class="num">3</span>
+)
+
+sourceDF.transform(
+  truncateColumns(columnLengths)
+)</pre><p>Limits the <code>&quot;person&quot;</code> column to 2 characters and the <code>&quot;phone&quot;</code> column to 3 characters.
+</p></div></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>

@@ -205,7 +205,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.SparkSessionExt.SparkSessionMethods#createDF" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.SparkSessionExt.SparkSessionMethods#createDF" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="createDF[U,T](rowData:List[U],fields:List[T]):org.apache.spark.sql.DataFrame"></a>
       <a id="createDF[U,T](List[U],List[T]):DataFrame"></a>
       <h4 class="signature">
@@ -221,7 +221,28 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Creates a DataFrame, similar to createDataFrame, but with better syntax</p>
+      <p class="shortcomment cmt">Creates a DataFrame, similar to createDataFrame, but with better syntax
+spark-daria defined a createDF method that allows for the terse syntax of <code>toDF</code> and the control of <code>createDataFrame</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a DataFrame, similar to createDataFrame, but with better syntax
+spark-daria defined a createDF method that allows for the terse syntax of <code>toDF</code> and the control of <code>createDataFrame</code>.</p><p>spark.createDF(
+  List(
+    (&quot;bob&quot;, 45),
+    (&quot;liz&quot;, 25),
+    (&quot;freeman&quot;, 32)
+  ), List(
+    (&quot;name&quot;, StringType, true),
+    (&quot;age&quot;, IntegerType, false)
+  )
+)</p><p>The <code>createDF</code> method can also be used with lists of <code>Row</code> and <code>StructField</code> objects.</p><p>spark.createDF(
+  List(
+    Row(&quot;bob&quot;, 45),
+    Row(&quot;liz&quot;, 25),
+    Row(&quot;freeman&quot;, 32)
+  ), List(
+    StructField(&quot;name&quot;, StringType, true),
+    StructField(&quot;age&quot;, IntegerType, false)
+  )
+)
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>

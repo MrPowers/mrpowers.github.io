@@ -49,7 +49,8 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>spark-daria can be used as a lightweight framework for running ETL analyses in Spark.</p><p>You can define <code>EtlDefinitions</code>, group them in a collection, and run the etls via jobs.</p><p><b>Components of an ETL</b></p><p>An ETL starts with a DataFrame, runs a series of transformations (filter, custom transformations, repartition), and writes out data.</p><p>The <code>EtlDefinition</code> class is generic and can be molded to suit all ETL situations.  For example, it can read a CSV file from S3, run transformations, and write out Parquet files on your local filesystem.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -347,7 +348,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.github.mrpowers.spark.daria.sql.EtlDefinition#process" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.github.mrpowers.spark.daria.sql.EtlDefinition#process" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="process():Unit"></a>
       <a id="process():Unit"></a>
       <h4 class="signature">
@@ -363,7 +364,34 @@
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Runs an ETL process</p><div class="fullcomment"><div class="comment cmt"><p>Runs an ETL process</p><pre><span class="kw">val</span> sourceDF = spark.createDF(
+<span class="std">List</span>(
+  (<span class="lit">"bob"</span>, <span class="num">14</span>),
+  (<span class="lit">"liz"</span>, <span class="num">20</span>)
+ ), <span class="std">List</span>(
+  (<span class="lit">"name"</span>, StringType, <span class="kw">true</span>),
+  (<span class="lit">"age"</span>, IntegerType, <span class="kw">true</span>)
+ )
+)
+
+<span class="kw">def</span> someTransform()(df: DataFrame): DataFrame = {
+  df.withColumn(<span class="lit">"cool"</span>, lit(<span class="lit">"dude"</span>))
+}
+
+<span class="kw">def</span> someWriter()(df: DataFrame): <span class="std">Unit</span> = {
+  <span class="kw">val</span> path = <span class="kw">new</span> java.io.File(<span class="lit">"./tmp/example"</span>).getCanonicalPath
+  df.repartition(<span class="num">1</span>).write.csv(path)
+}
+
+<span class="kw">val</span> etlDefinition = <span class="kw">new</span> EtlDefinition(
+  name =  <span class="lit">"example"</span>,
+  sourceDF = sourceDF,
+  transform = someTransform(),
+  write = someWriter(),
+  hidden = <span class="kw">false</span>
+)
+
+etlDefinition.process()</pre></div></div>
     </li><li name="com.github.mrpowers.spark.daria.sql.EtlDefinition#sourceDF" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="sourceDF:org.apache.spark.sql.DataFrame"></a>
       <a id="sourceDF:DataFrame"></a>
