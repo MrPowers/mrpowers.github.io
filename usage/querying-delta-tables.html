@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Querying a Delta Table - Matthew Powers Book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Index</a></li><li class="chapter-item expanded "><a href="../installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../usage/index.html"><strong aria-hidden="true">3.</strong> Usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../usage/loading-table.html"><strong aria-hidden="true">3.1.</strong> Loading a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/examining-table.html"><strong aria-hidden="true">3.2.</strong> Examining a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/querying-delta-tables.html" class="active"><strong aria-hidden="true">3.3.</strong> Querying a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/managing-tables.html"><strong aria-hidden="true">3.4.</strong> Managing a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/writing-delta-tables.html"><strong aria-hidden="true">3.5.</strong> Writing Delta Tables</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Matthew Powers Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="querying-delta-tables"><a class="header" href="#querying-delta-tables">Querying Delta Tables</a></h1>
+<p>Delta tables can be queried in several ways. By loading as Arrow data or
+an Arrow dataset, they can be used by compatible engines such as Pandas
+and DuckDB. By passing on the list of files, they can be loaded into
+other engines such as Dask.</p>
+<p>Delta tables are often larger than can fit into memory on a single
+computer, so this module provides ways to read only the parts of the
+data you need. Partition filters allow you to skip reading files that
+are part of irrelevant partitions. Only loading the columns required
+also saves memory. Finally, some methods allow reading tables
+batch-by-batch, allowing you to process the whole table while only
+having a portion loaded at any given time.</p>
+<p>To load into Pandas or a PyArrow table use the <code>DeltaTable.to_pandas</code> and <code>DeltaTable.to_pyarrow_table</code> methods, respectively. Both of these support filtering partitions and selecting particular columns.</p>
+<pre><code class="language-python">&gt;&gt;&gt; from deltalake import DeltaTable
+&gt;&gt;&gt; dt = DeltaTable(&quot;../rust/tests/data/delta-0.8.0-partitioned&quot;)
+&gt;&gt;&gt; dt.schema().to_pyarrow()
+value: string
+year: string
+month: string
+day: string
+&gt;&gt;&gt; dt.to_pandas(partitions=[(&quot;year&quot;, &quot;=&quot;, &quot;2021&quot;)], columns=[&quot;value&quot;])
+      value
+0     6
+1     7
+2     5
+3     4
+&gt;&gt;&gt; dt.to_pyarrow_table(partitions=[(&quot;year&quot;, &quot;=&quot;, &quot;2021&quot;)], columns=[&quot;value&quot;])
+pyarrow.Table
+value: string
+</code></pre>
+<p>Converting to a PyArrow Dataset allows you to filter on columns other
+than partition columns and load the result as a stream of batches rather
+than a single table. Convert to a dataset using
+<code>DeltaTable.to_pyarrow_dataset</code>. Filters
+applied to datasets will use the partition values and file statistics
+from the Delta transaction log and push down any other filters to the
+scanning operation.</p>
+<pre><code class="language-python">&gt;&gt;&gt; import pyarrow.dataset as ds
+&gt;&gt;&gt; dataset = dt.to_pyarrow_dataset()
+&gt;&gt;&gt; condition = (ds.field(&quot;year&quot;) == &quot;2021&quot;) &amp; (ds.field(&quot;value&quot;) &gt; &quot;4&quot;)
+&gt;&gt;&gt; dataset.to_table(filter=condition, columns=[&quot;value&quot;]).to_pandas()
+  value
+0     6
+1     7
+2     5
+&gt;&gt;&gt; batch_iter = dataset.to_batches(filter=condition, columns=[&quot;value&quot;], batch_size=2)
+&gt;&gt;&gt; for batch in batch_iter: print(batch.to_pandas())
+  value
+0     6
+1     7
+  value
+0     5
+</code></pre>
+<p>PyArrow datasets may also be passed to compatible query engines, such as
+<a href="https://duckdb.org/docs/api/python">DuckDB</a>.</p>
+<pre><code class="language-python">&gt;&gt;&gt; import duckdb
+&gt;&gt;&gt; ex_data = duckdb.arrow(dataset)
+&gt;&gt;&gt; ex_data.filter(&quot;year = 2021 and value &gt; 4&quot;).project(&quot;value&quot;)
+---------------------
+-- Expression Tree --
+---------------------
+Projection [value]
+  Filter [year=2021 AND value&gt;4]
+    arrow_scan(140409099470144, 4828104688, 1000000)
+
+---------------------
+-- Result Columns  --
+---------------------
+- value (VARCHAR)
+
+---------------------
+-- Result Preview  --
+---------------------
+value
+VARCHAR
+[ Rows: 3]
+6
+7
+5
+</code></pre>
+<p>Finally, you can always pass the list of file paths to an engine. For
+example, you can pass them to <code>dask.dataframe.read_parquet</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; import dask.dataframe as dd
+&gt;&gt;&gt; df = dd.read_parquet(dt.file_uris())
+&gt;&gt;&gt; df
+Dask DataFrame Structure:
+                value             year            month              day
+npartitions=6                                                           
+               object  category[known]  category[known]  category[known]
+                  ...              ...              ...              ...
+...               ...              ...              ...              ...
+                  ...              ...              ...              ...
+                  ...              ...              ...              ...
+Dask Name: read-parquet, 6 tasks
+&gt;&gt;&gt; df.compute()
+  value  year month day
+0     1  2020     1   1
+0     2  2020     2   3
+0     3  2020     2   5
+0     4  2021     4   5
+0     5  2021    12   4
+0     6  2021    12  20
+1     7  2021    12  20
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../usage/examining-table.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../usage/managing-tables.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../usage/examining-table.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../usage/managing-tables.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

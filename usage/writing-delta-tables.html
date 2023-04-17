@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Blogs - Matthew Powers Book</title>
+        <title>Writing Delta Tables - Matthew Powers Book</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,7 +35,7 @@
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="oss.html"><strong aria-hidden="true">1.</strong> Open Source projects</a></li><li class="chapter-item expanded "><a href="blogs.html" class="active"><strong aria-hidden="true">2.</strong> Blogs</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Index</a></li><li class="chapter-item expanded "><a href="../installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../usage/index.html"><strong aria-hidden="true">3.</strong> Usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../usage/loading-table.html"><strong aria-hidden="true">3.1.</strong> Loading a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/examining-table.html"><strong aria-hidden="true">3.2.</strong> Examining a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/querying-delta-tables.html"><strong aria-hidden="true">3.3.</strong> Querying a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/managing-tables.html"><strong aria-hidden="true">3.4.</strong> Managing a Delta Table</a></li><li class="chapter-item expanded "><a href="../usage/writing-delta-tables.html" class="active"><strong aria-hidden="true">3.5.</strong> Writing Delta Tables</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -115,7 +115,7 @@
                     <h1 class="menu-title">Matthew Powers Book</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -144,18 +144,52 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="blogs"><a class="header" href="#blogs">Blogs</a></h1>
-<ul>
-<li><a href="https://mungingdata.com/">MungingData</a></li>
-<li><a href="https://medium.com/@mrpowers">Medium blog</a></li>
-<li><a href="https://codequizzes.wordpress.com/">Old Wordpress blog</a></li>
-</ul>
+                        <h1 id="writing-delta-tables"><a class="header" href="#writing-delta-tables">Writing Delta Tables</a></h1>
+<p>For overwrites and appends, use <code>write_deltalake</code>. If the table does not already exist, it will be created.
+The <code>data</code> parameter will accept a Pandas DataFrame, a PyArrow Table, or
+an iterator of PyArrow Record Batches.</p>
+<pre><code class="language-python">&gt;&gt;&gt; from deltalake.writer import write_deltalake
+&gt;&gt;&gt; df = pd.DataFrame({'x': [1, 2, 3]})
+&gt;&gt;&gt; write_deltalake('path/to/table', df)
+</code></pre>
+<p>Note: <code>write_deltalake</code> accepts a Pandas DataFrame, but will convert it to a Arrow table before writing. See caveats in <code>pyarrow:python/pandas</code>.</p>
+<p>By default, writes create a new table and error if it already exists.
+This is controlled by the <code>mode</code> parameter, which mirrors the behavior
+of Spark's <code>pyspark.sql.DataFrameWriter.saveAsTable</code> DataFrame method. To overwrite pass in <code>mode='overwrite'</code> and to append pass in <code>mode='append'</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; write_deltalake('path/to/table', df, mode='overwrite')
+&gt;&gt;&gt; write_deltalake('path/to/table', df, mode='append')
+</code></pre>
+<p><code>write_deltalake</code> will raise <code>ValueError</code> if the schema of the data
+passed to it differs from the existing table's schema. If you wish to
+alter the schema as part of an overwrite pass in <code>overwrite_schema=True</code>.</p>
+<h2 id="overwriting-a-partition"><a class="header" href="#overwriting-a-partition">Overwriting a partition</a></h2>
+<p>You can overwrite a specific partition by using <code>mode=&quot;overwrite&quot;</code>
+together with <code>partition_filters</code>. This will remove all files within the
+matching partition and insert your data as new files. This can only be
+done on one partition at a time. All of the input data must belong to
+that partition or else the method will raise an error.</p>
+<pre><code class="language-python">&gt;&gt;&gt; from deltalake.writer import write_deltalake
+&gt;&gt;&gt; df = pd.DataFrame({'x': [1, 2, 3], 'y': ['a', 'a', 'b']})
+&gt;&gt;&gt; write_deltalake('path/to/table', df, partition_by=['y'])
+
+&gt;&gt;&gt; table = DeltaTable('path/to/table')
+&gt;&gt;&gt; df2 = pd.DataFrame({'x': [100], 'y': ['b']})
+&gt;&gt;&gt; write_deltalake(table, df2, partition_filters=[('y', '=', 'b')], mode=&quot;overwrite&quot;)
+
+&gt;&gt;&gt; table.to_pandas()
+     x  y
+0    1  a
+1    2  a
+2  100  b
+</code></pre>
+<p>This method could also be used to insert a new partition if one doesn't
+already exist, making this operation idempotent.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="oss.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../usage/managing-tables.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -166,7 +200,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="oss.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../usage/managing-tables.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
@@ -182,13 +216,13 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 

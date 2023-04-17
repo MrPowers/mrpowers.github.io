@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Matthew Powers Book</title>
-        <base href="/">
+        <title>Installation - Matthew Powers Book</title>
 
 
         <!-- Custom HTML head -->
@@ -84,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Index</a></li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="usage/index.html"><strong aria-hidden="true">3.</strong> Usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="usage/loading-table.html"><strong aria-hidden="true">3.1.</strong> Loading a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/examining-table.html"><strong aria-hidden="true">3.2.</strong> Examining a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/querying-delta-tables.html"><strong aria-hidden="true">3.3.</strong> Querying a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/managing-tables.html"><strong aria-hidden="true">3.4.</strong> Managing a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/writing-delta-tables.html"><strong aria-hidden="true">3.5.</strong> Writing Delta Tables</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Index</a></li><li class="chapter-item expanded "><a href="installation.html" class="active"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="usage/index.html"><strong aria-hidden="true">3.</strong> Usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="usage/loading-table.html"><strong aria-hidden="true">3.1.</strong> Loading a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/examining-table.html"><strong aria-hidden="true">3.2.</strong> Examining a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/querying-delta-tables.html"><strong aria-hidden="true">3.3.</strong> Querying a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/managing-tables.html"><strong aria-hidden="true">3.4.</strong> Managing a Delta Table</a></li><li class="chapter-item expanded "><a href="usage/writing-delta-tables.html"><strong aria-hidden="true">3.5.</strong> Writing Delta Tables</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,14 +144,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<h2 id="using-pip"><a class="header" href="#using-pip">Using Pip</a></h2>
+<pre><code class="language-bash">pip install deltalake
+</code></pre>
+<p>NOTE: official binary wheels are linked against openssl statically for
+remote objection store communication. Please file Github issue to
+request for critical openssl upgrade.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next" href="usage/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -160,7 +170,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next" href="usage/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
